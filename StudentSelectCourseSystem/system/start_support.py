@@ -22,10 +22,10 @@ except ImportError:
 
     py3 = True
 
-global user1
-global password1
-global var
-global return_value
+user1 = None
+password1 = None
+var = None
+return_value = None
 
 
 def set_tk_var():
@@ -66,8 +66,8 @@ def select_table():
     sys.stdout.flush()
 
 
-def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+def init(top, gui):
+    global w, top_level, root, var
     w = gui
     top_level = top
     root = top

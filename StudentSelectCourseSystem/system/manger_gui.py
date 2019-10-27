@@ -26,7 +26,7 @@ from system import manger_support
 
 def vp_start_gui(user):
     # Starting point when module is the main routine.
-    global val, w, root
+    global var, w, root
     # this_user = user
     root = tk.Tk()
     manger_support.set_tk_var(user)
@@ -35,7 +35,9 @@ def vp_start_gui(user):
     root.mainloop()
 
 
+var = None
 w = None
+w_win = None
 
 
 def create_Toplevel1(root, *args, **kwargs):
@@ -43,9 +45,9 @@ def create_Toplevel1(root, *args, **kwargs):
     global w, w_win, rt
     rt = root
     w = tk.Toplevel(root)
-    manger_support.set_tk_var()
+    manger_support.set_tk_var(manger_support.user)
     top = Toplevel1(w)
-    manger_support.init(w, top, *args, **kwargs)
+    manger_support.init(w, top)
     return w, top
 
 
@@ -57,8 +59,8 @@ def destroy_Toplevel1():
 
 class Toplevel1:
     def __init__(self, top=None):
-        '''This class configures and populates the toplevel window.
-           top is the toplevel containing window.'''
+        # '''This class configures and populates the toplevel window.
+        #    top is the toplevel containing window.'''
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         _fgcolor = '#000000'  # X11 color: 'black'
         _compcolor = '#d9d9d9'  # X11 color: 'gray85'
@@ -797,7 +799,7 @@ class Toplevel1:
         self.Entry11.configure(foreground="#000000")
         self.Entry11.configure(insertbackground="black")
         self.Entry11.configure(show="*")
-        self.Entry11.configure(textvariable=manger_support.change_password)
+        self.Entry11.configure(textvariable=manger_support.change_password_var)
 
         # 修改密码页面message
         self.Message2 = tk.Message(self.change_password_frame)

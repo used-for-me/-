@@ -6,7 +6,7 @@
 #    Dec 29, 2018 10:09:56 AM CST  platform: Windows NT
 
 import sys
-
+import platform
 try:
     import Tkinter as tk
 except ImportError:
@@ -36,6 +36,7 @@ def vp_start_gui(user):
 
 
 w = None
+w_win = None
 
 
 def create_Toplevel1(root, *args, **kwargs):
@@ -43,9 +44,9 @@ def create_Toplevel1(root, *args, **kwargs):
     global w, w_win, rt
     rt = root
     w = tk.Toplevel(root)
-    student_gui_support.set_tk_var()
+    student_gui_support.set_tk_var(student_gui_support.user)
     top = Toplevel1(w)
-    student_gui_support.init(w, top, *args, **kwargs)
+    student_gui_support.init(w, top)
     return w, top
 
 
@@ -605,9 +606,6 @@ class ScrolledTreeView(AutoScroll, ttk.Treeview):
     def __init__(self, master, **kw):
         ttk.Treeview.__init__(self, master, **kw)
         AutoScroll.__init__(self, master)
-
-
-import platform
 
 
 def _bound_to_mousewheel(event, widget):

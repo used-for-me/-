@@ -14,13 +14,13 @@ except ImportError:
 
     py3 = True
 
-global grade5
-global student_course_message
-global flush_message
-global user
-global password
-global change_password
-global change_password_message
+grade5 = None
+student_course_message = None
+flush_message = None
+user = None
+password = None
+change_password = None
+change_password_message = None
 
 
 def set_tk_var(that_user):
@@ -75,7 +75,7 @@ def change_password_button():
     sys.stdout.flush()
 
 
-def init(top, gui, *args, **kwargs):
+def init(top, gui):
     global w, top_level, root
     w = gui
     top_level = top

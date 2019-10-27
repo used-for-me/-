@@ -35,6 +35,8 @@ def vp_start_gui():
 
 
 w = None
+var = None
+w_win = None
 
 
 def create_Toplevel1(root, *args, **kwargs):
@@ -44,7 +46,7 @@ def create_Toplevel1(root, *args, **kwargs):
     w = tk.Toplevel(root)
     start_support.set_tk_var()
     top = Toplevel1(w)
-    start_support.init(w, top, *args, **kwargs)
+    start_support.init(w, top)
     return w, top
 
 

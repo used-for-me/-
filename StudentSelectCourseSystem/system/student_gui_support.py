@@ -14,15 +14,15 @@ except ImportError:
 
     py3 = True
 
-global select_num
-global withdrawal_num
-global message1
-global selected_course_message
-global user
-global password
-global change_password
-global change_password_message
-global find_grade_message
+select_num = None
+withdrawal_num = None
+message1 = None
+selected_course_message = None
+user = None
+password = None
+change_password = None
+change_password_message = None
+find_grade_message = None
 
 
 def set_tk_var(that_user):
@@ -107,7 +107,7 @@ def withdrawal_course_button():
     sys.stdout.flush()
 
 
-def init(top, gui, *args, **kwargs):
+def init(top, gui):
     global w, top_level, root
     w = gui
     top_level = top

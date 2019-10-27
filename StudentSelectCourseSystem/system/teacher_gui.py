@@ -1,5 +1,5 @@
 from system import Auth_teacher, teacher_support
-
+import platform
 from tkinter import *
 
 try:
@@ -30,6 +30,7 @@ def vp_start_gui(user):
 
 
 w = None
+w_win = None
 
 
 def create_Toplevel1(root, *args, **kwargs):
@@ -37,9 +38,9 @@ def create_Toplevel1(root, *args, **kwargs):
     global w, w_win, rt
     rt = root
     w = tk.Toplevel(root)
-    teacher_support.set_tk_var()
+    teacher_support.set_tk_var(teacher_support.user)
     top = Toplevel1(w)
-    teacher_support.init(w, top, *args, **kwargs)
+    teacher_support.init(w, top)
     return w, top
 
 
@@ -199,7 +200,7 @@ class Toplevel1:
                     self.Scrolled_tree_view2.insert('', '0',
                                                     values=(item[1]))
 
-        def flushcourse1():
+        def flush_course1():
             teacher_support.student_course_message.set('')
             item = self.Scrolled_tree_view2.selection()
             ss = self.Scrolled_tree_view2.item(item, "values")
@@ -216,7 +217,7 @@ class Toplevel1:
             else:
                 teacher_support.student_course_message.set(ss[0] + '为空')
 
-        def on_db_click(event):
+        def on_db_click():
             teacher_support.student_course_message.set('')
             item = self.Scrolled_tree_view2.selection()
             ss = self.Scrolled_tree_view2.item(item, "values")
@@ -250,7 +251,7 @@ class Toplevel1:
                         p = ["update tb_stucourse set Grade={0} where StudentNum='{1}' and CourseNum='{2}'".format
                              (fff, nn[0], nn[1]), 1]
                         Auth_teacher.Teacher.select_course(*p)
-                        flushcourse1()
+                        flush_course1()
                     else:
                         teacher_support.flush_message.set('数值0~100')
                 else:
@@ -424,6 +425,7 @@ class AutoScroll(object):
         #  Rozen. Added the try-except clauses so that this class
         #  could be used for scrolled entry widget for which vertical
         #  scrolling is not supported. 5/7/14.
+        vsb = None
         try:
             vsb = ttk.Scrollbar(master, orient='vertical', command=self.yview)
         except:
@@ -492,8 +494,8 @@ def _create_container(func):
 
 
 class ScrolledTreeView(AutoScroll, ttk.Treeview):
-    '''A standard ttk Treeview widget with scrollbars that will
-    automatically show/hide as needed.'''
+    # A standard ttk Treeview widget with scrollbars that will
+    # automatically show/hide as needed.
 
     @_create_container
     def __init__(self, master, **kw):
@@ -501,10 +503,7 @@ class ScrolledTreeView(AutoScroll, ttk.Treeview):
         AutoScroll.__init__(self, master)
 
 
-import platform
-
-
-def _bound_to_mousewheel(event, widget):
+def _bound_to_mousewheel(widget):
     child = widget.winfo_children()[0]
     if platform.system() == 'Windows' or platform.system() == 'Darwin':
         child.bind_all('<MouseWheel>', lambda e: _on_mousewheel(e, child))
@@ -516,7 +515,7 @@ def _bound_to_mousewheel(event, widget):
         child.bind_all('<Shift-Button-5>', lambda e: _on_shiftmouse(e, child))
 
 
-def _unbound_to_mousewheel(event, widget):
+def _unbound_to_mousewheel(widget):
     if platform.system() == 'Windows' or platform.system() == 'Darwin':
         widget.unbind_all('<MouseWheel>')
         widget.unbind_all('<Shift-MouseWheel>')
